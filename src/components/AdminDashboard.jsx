@@ -36,6 +36,12 @@ class AdminDashboard extends Component {
                 <Button>Software Installation Requests</Button>
               </Link>
             </Col>
+            <Col>
+              {" "}
+              <Link to={`/admin/servermon`}>
+                <Button>Server Monitor</Button>
+              </Link>
+            </Col>
           </Row>
         </Card>
       </Container>
