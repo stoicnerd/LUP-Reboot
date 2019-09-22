@@ -1,36 +1,27 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-
-import Collapse from "rc-collapse";
 import "rc-collapse/assets/index.css";
-
-import ButtonToolbar from "react-bootstrap/ButtonGroup";
-import Card from "react-bootstrap/Card";
-import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Image from "react-bootstrap/Image";
-import Row from "react-bootstrap/Row";
-import Button from "react-bootstrap/Button";
-import ToggleButton from "react-bootstrap/ToggleButton";
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 
 import { axiosGET } from "../utils/axiosClient";
-import getDecodedToken from "../utils/jwt";
+import { getDecodedToken } from "../utils/jwt";
 
 class StudentDashboard extends Component {
   constructor(props) {
     super(props);
+    this.user = getDecodedToken();
+    console.log(this.user);
   }
-  decode = () => {
-    let mail = getDecodedToken().email;
-    console.log(mail);
-  };
   render() {
     return (
       <Container>
         <div>
           <h1>THIS IS THE STUDENT DASHBOARD!</h1>
+          {this.user.role === "notAdmin" ? (
+            <button>notAdmin</button>
+          ) : (
+            <button>Admin</button>
+          )}
+          {this.user.email}
           <p />
         </div>
       </Container>

@@ -4,7 +4,6 @@ import { GoogleLogin } from "react-google-login";
 import { getToken, checkToken } from "../utils/jwt";
 
 import LazyHero from "react-lazy-hero";
-import logo from "../assets/logo.png";
 import back1 from "../assets/back1.jpg";
 import back2 from "../assets/back2.jpg";
 
@@ -20,7 +19,6 @@ class Login extends Component {
 
   render() {
     let googleSuccess = data => {
-      console.log("THIS IS googleSuccess");
       getToken(data.tokenObj.access_token, (err, token) => {
         if (err) {
           return this.setState({
@@ -32,7 +30,6 @@ class Login extends Component {
       });
     };
     let googleFailure = data => {
-      console.log("THIS IS googleFailure");
       console.log(data);
       this.setState({
         failed: true
@@ -61,15 +58,16 @@ class Login extends Component {
                 color: "white"
               }}
             >
-              <img
+              {/* <img
                 src={logo}
                 height="auto"
                 width="100%"
-                alt="My Course Guide"
-              />
+                alt="Lab Utility Portal"
+              /> */}
+              <h1>Lab Utility Portal</h1>
               <br />
               <br />
-              <h2>Helping you make better choices</h2>
+              <h4>Lab Bookings and Software Install Requests for CSIS Labs</h4>
               <br />
 
               <h5
@@ -105,14 +103,14 @@ class Login extends Component {
           >
             <h2>
               <b>
-                <u>About MCG</u>
+                <u>About LUP</u>
               </b>
             </h2>
             <h4 style={{ marginLeft: "10%", marginRight: "10%" }}>
-              We here at My Course Guide aim to provide a platform for students
-              as well as professors to give and receive constructive feedback
-              about any course(s) they have taken, and help others by answering
-              their queries.
+              This Portal is for efficient management of the newly constructed
+              CSIS Labs. These labs have high-end computers which can be of
+              great use to the students who want to divulge into the area of
+              ML/AI or other resource intensive fields.
             </h4>
             <br />
             <br />
@@ -122,7 +120,7 @@ class Login extends Component {
               }}
             >
               <br />
-              Made with <span style={{ color: "#e25555" }}>❤</span> in Hyderabad
+              Made with <span style={{ color: "#e25555" }}>❤</span> in BPHC
             </div>
           </LazyHero>
         </div>

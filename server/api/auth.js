@@ -28,7 +28,6 @@ router.get(
       name: req.user._json.name,
       email: req.user.emails[0].value
     };
-    console.log("THIS IS WORKING!");
     
     let admin = await Admin.findOne({ email: payload.email });
 
@@ -45,14 +44,12 @@ router.get(
     const regex = /[a-zA-z0-9]+@hyderabad.bits-pilani.ac.in/gm;
     const str = payload.email;
     if (regex.test(str)) {
-      console.log("this is a notAdmin id");
       payload.role = "notAdmin";
       let token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: 21600 // 6 hours
       });
       return res.json({ token })
     }
-    console.log("NOPE NOT anything");
     
     return res.status(401).json({});
   }
