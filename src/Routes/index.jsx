@@ -66,6 +66,8 @@ class Routes extends Component {
         <Switch className="main">
           <CommonRoute exact path="/booking" component={Bookings} />
           <CommonRoute exact path="/installrequest" component={WIP} />
+          <AdminRoute exact path="/admin/installrequest" component={WIP} />
+          <AdminRoute exact path="/admin/booking" component={WIP} />
           <Route
             path="/login"
             render={props => (

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { axiosGET, axiosDELETE } from "../utils/axiosClient";
+import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 
 class AdminDashboard extends Component {
   constructor(props) {
@@ -22,11 +22,22 @@ class AdminDashboard extends Component {
             <h1 className="text-center">THIS IS THE GREAT ADMIN'S DASHBOARD</h1>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <div />
-          </Col>
-        </Row>
+        <Card bg="secondary">
+          <Row>
+            <Col>
+              {" "}
+              <Link to={`/admin/booking`}>
+                <Button>Lab Bookings</Button>
+              </Link>
+            </Col>
+            <Col>
+              {" "}
+              <Link to={`/admin/installrequest`}>
+                <Button>Software Installation Requests</Button>
+              </Link>
+            </Col>
+          </Row>
+        </Card>
       </Container>
     );
   }
