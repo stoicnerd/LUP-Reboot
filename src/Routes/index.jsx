@@ -10,6 +10,7 @@ import { Redirect } from "react-router";
 import { checkToken, getDecodedToken } from "../utils/jwt";
 
 // Navbar should appear on every page and so should not be lazy loaded
+import Header from "../components/Header.jsx";
 
 import { loadProgressBar } from "axios-progress-bar";
 import "../styles/progres-bar.css";
@@ -63,6 +64,7 @@ class Routes extends Component {
     const decodedToken = getDecodedToken();
     return (
       <div>
+        {decodedToken && <Header decodedToken={decodedToken} />}
         <Switch className="main">
           <CommonRoute exact path="/booking" component={Bookings} />
           <CommonRoute exact path="/installrequest" component={WIP} />

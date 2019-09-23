@@ -26,7 +26,8 @@ router.get(
   async (req, res, next) => {
     let payload = {
       name: req.user._json.name,
-      email: req.user.emails[0].value
+      email: req.user.emails[0].value,
+      picture: req.user._json.picture
     };
 
     let admin = await Admin.findOne({ email: payload.email });
