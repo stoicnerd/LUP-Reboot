@@ -1,5 +1,4 @@
-import React, { Component, useState } from "react";
-import { axiosGET, axiosDELETE } from "../utils/axiosClient";
+import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -25,7 +24,7 @@ class Bookings extends Component {
             <iframe
               title="Current CSIS Lab Bookings"
               src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Asia%2FKolkata&amp;src=amNmb3UwbTN2dnNzNWh1bW12a25lNzBkNzBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%233F51B5&amp;showTitle=0"
-              style={{ "border-width": 0 }}
+              style={{ borderWidth: 0 }}
               width="800"
               height="600"
               frameBorder="0"
