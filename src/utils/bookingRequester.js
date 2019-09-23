@@ -16,6 +16,10 @@ let sendBookingRequest = (bookingReqData, callback) => {
   end.set("year", year);
   end.set("month", month);
   end.set("date", dow);
+  if (start.valueOf() > end.valueOf()) {
+    callback(true, null);
+    return;
+  }
   let apiUrl = encodeURI(
     "https://www.googleapis.com/calendar/v3/calendars/jcfou0m3vvss5hummvkne70d70@group.calendar.google.com/events?singleEvents=true&orderBy=startTime&key=AIzaSyDIHuFkitKN5-CzNR-hVsLG4yM9CuYRg4I&timeMin=" +
       start.toISOString() +
