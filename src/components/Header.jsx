@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 
-import { AsyncTypeahead, Menu } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead-bs4.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
@@ -12,7 +11,6 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 
 import logo from "../assets/logo.png";
 import "../styles/header.css";
-import { axiosGET } from "../utils/axiosClient";
 
 class Header extends Component {
   constructor(props) {
@@ -36,7 +34,6 @@ class Header extends Component {
   getCommonJSX() {
     return (
       <Nav>
-        {/* {this.getSearchBarJSX()} */}
         <NavDropdown
           title={this.state.decodedToken.name}
           id="collasible-nav-dropdown"
@@ -56,58 +53,7 @@ class Header extends Component {
       </Nav>
     );
   }
-  // getAdminJSX() {
-  //   return (
-  //     <LinkContainer to="/upload">
-  //       <Nav.Link>Import Data</Nav.Link>
-  //     </LinkContainer>
-  //   );
-  // }
-  // getSearchBarJSX() {
-  //   return (
-  //     <AsyncTypeahead
-  //       isLoading={this.state.isSearchLoading}
-  //       id="searchTypeahead"
-  //       align="left"
-  //       placeholder="Search Courses"
-  //       selected={this.state.selectedCourse}
-  //       onSearch={query => {
-  //         if (query.length >= 2) {
-  //           this.setState({ isSearchLoading: true });
-  //           axiosGET(`/api/courses/name/${query}`).then(res => {
-  //             let courses = res.data.map(({ name, id, ...rest }) => {
-  //               let label = id + " " + name;
-  //               if (this.state.role === "admin") {
-  //                 label = rest.campus + ": " + label;
-  //               }
-  //               return { label, ...rest, id };
-  //             });
-  //             this.setState({ isSearchLoading: false, courses });
-  //           });
-  //         }
-  //       }}
-  //       renderMenu={(results, menuProps) => (
-  //         <Menu {...menuProps}>
-  //           {results.map((result, index) => (
-  //             <LinkContainer
-  //               to={
-  //                 this.state.role === "admin"
-  //                   ? `/courses/${result.id}/${result.campus}`
-  //                   : `/courses/${result.id}`
-  //               }
-  //               key={result.id + " " + result.campus}
-  //             >
-  //               <Nav.Link>
-  //                 <div className="searchItem">{result.label}</div>
-  //               </Nav.Link>
-  //             </LinkContainer>
-  //           ))}
-  //         </Menu>
-  //       )}
-  //       options={this.state.courses}
-  //     />
-  //   );
-  // }
+
   render() {
     return (
       <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">

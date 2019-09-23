@@ -14,11 +14,7 @@ class Bookings extends Component {
   render() {
     return (
       <Container>
-        <Row>
-          <Col>
-            <h1 className="text-center">THIS IS THE Bookings Component</h1>
-          </Col>
-        </Row>
+        <br />
         <Row>
           <Col>
             <iframe
@@ -31,8 +27,13 @@ class Bookings extends Component {
               scrolling="no"
             />
           </Col>
-          <Col>
-            <h1>New Booking</h1>
+          <Col style={{ border: "1px black solid" }}>
+            <br />
+            <br />
+            <h1>
+              <u>New Booking</u>
+            </h1>
+            <br />
             <BookingPicker />
           </Col>
         </Row>

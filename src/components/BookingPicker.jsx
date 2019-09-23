@@ -84,15 +84,19 @@ class BookingPicker extends Component {
       //   }
       sendBookingRequest(bookingData, (err, length) => {
         if (err) {
-          alert("Please provide a valid Date, Start Time and End Time")
+          alert("Please provide a valid Date, Start Time and End Time");
           //this.setState({modalMsg:"Please provide a valid Date, Start Time and End Time"})
-          log("Please provide a valid Date, Start Time and End Time", "error");
+          log("Please provide a valid Date, Start Time and End Time", "info");
           return;
-        } else {
-          alert("The slot is available")
+        } else if (length === 0) {
+          alert("The slot is available");
           //this.setState({modalMsg:"The slot is available"})
           log("The slot is available", "success");
           return;
+        } else {
+          alert("The slot is unavailable");
+          //this.setState({modalMsg:"The slot is available"})
+          log("The slot is unavailable", "error");
         }
       });
     };
@@ -125,7 +129,8 @@ class BookingPicker extends Component {
           }}
           minutesStep={5}
         />
-        <Button variant="secondary" onClick={checkValidBooking}>
+        <br />
+        <Button style={{ margin: "15px"}} variant="secondary" onClick={checkValidBooking}>
           Request Booking
         </Button>
       </MuiPickersUtilsProvider>

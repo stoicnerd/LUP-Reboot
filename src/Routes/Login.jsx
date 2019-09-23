@@ -4,6 +4,7 @@ import { GoogleLogin } from "react-google-login";
 import { getToken, checkToken } from "../utils/jwt";
 
 import LazyHero from "react-lazy-hero";
+import logo from "../assets/logo.png";
 import back1 from "../assets/back1.jpg";
 import back2 from "../assets/back2.jpg";
 
@@ -58,13 +59,13 @@ class Login extends Component {
                 color: "white"
               }}
             >
-              {/* <img
+              <img
                 src={logo}
                 height="auto"
                 width="100%"
                 alt="Lab Utility Portal"
-              /> */}
-              <h1>Lab Utility Portal</h1>
+              />
+              {/* <h1>Lab Utility Portal</h1> */}
               <br />
               <br />
               <h4>Lab Bookings and Software Install Requests for CSIS Labs</h4>
