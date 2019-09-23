@@ -84,9 +84,13 @@ class BookingPicker extends Component {
       //   }
       sendBookingRequest(bookingData, (err, length) => {
         if (err) {
+          alert("Please provide a valid Date, Start Time and End Time")
+          //this.setState({modalMsg:"Please provide a valid Date, Start Time and End Time"})
           log("Please provide a valid Date, Start Time and End Time", "error");
           return;
         } else {
+          alert("The slot is available")
+          //this.setState({modalMsg:"The slot is available"})
           log("The slot is available", "success");
           return;
         }
