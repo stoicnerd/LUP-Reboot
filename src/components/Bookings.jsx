@@ -3,13 +3,46 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import BookingPicker from "./BookingPicker";
+import { axiosGET } from "../utils/axiosClient";
+import { getDecodedToken } from "../utils/jwt";
+import Request from "./Request";
+import SeeAll from "./SeeAll";
 
 class Bookings extends Component {
   constructor(props) {
     super(props);
+    this.state({
+      requests: []
+    });
   }
   componentDidMount() {
     console.log("Bookings REACHED");
+    this.getRequests();
+  }
+  async getRequests() {
+    let allRequests = [];
+    let decoded = getDecodedToken();
+    await axiosGET(`/api/requests/${decoded.email}`).then(res => {
+      // console.log(res);
+      // console.log("Hi");
+      allRequests = res.data;
+    });
+    this.setState({ requests: allRequests });
+  }
+
+  generateRequestsList() {
+    let allrequests = [];
+    let temp = [];
+    temp = this.state.requests;
+    console.log(this.state.requests);
+    temp.forEach(request => {
+      allrequests.push(
+        <div key={request._id}>
+          <Request request={request} />
+        </div>
+      );
+    });
+    return <SeeAll items={allrequests} count={50} name="requests" />;
   }
   render() {
     return (
