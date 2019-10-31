@@ -7,6 +7,8 @@ import {
 } from "@material-ui/pickers";
 import Button from "react-bootstrap/Button";
 import { sendBookingRequest } from "../utils/bookingRequester";
+import { axiosPOST } from "../utils/axiosClient";
+import {getDecodedToken} from "../utils/jwt";
 
 function log(msg, color) {
   color = color || "black";
@@ -90,6 +92,22 @@ class BookingPicker extends Component {
           return;
         } else {
           alert("The slot is available")
+          let data = getDecodedToken();
+          bookingData.start().date(bookingData.date.date());
+          bookingData.end().date(bookingData.date.date());
+          let req = {
+            name: data.name,
+            email: data.email,
+            status: "Requested",
+            startTime: bookingData.start.toDate(),
+            endTime: bookingData.end.toDate(),
+            description:"Anything"
+          }
+          axiosPOST(`/api/requests`, { req })
+          .then(res => {
+            console.log(res);
+            console.log(res.data);
+          })
           //this.setState({modalMsg:"The slot is available"})
           log("The slot is available", "success");
           return;
