@@ -39,36 +39,9 @@ let fetchRecords = async params => {
 
 router.get("/", checkToken(["admin"]), async (req, res, next) => {
   try {
-    //   if (req.user.role === "student") {
-    //     let records = await fetchRecords({ student: req.user.id });
-    //     return res.status(200).json(records);
-    //   } else {
-    //     let courses = [];
-    //     if (req.user.role === "hod" && !req.query.onlyhod) {
-    //       let profs = await Professor.find({
-    //         department: req.user.department,
-    //         campus: req.user.campus
-    //       });
-    //       for (let prof of profs) {
-    //         let profCourses = await Course.find({
-    //           "history.professor": prof
-    //         });
-    //         courses = [...courses, ...profCourses];
-    //       }
-    //     } else {
-    //       courses = await Course.find({
-    //         "history.professor": req.user.id
-    //       });
-    //     }
-    //     let records = { reviews: [], questions: [] };
-    //     for (let course of courses) {
-    //       let courseRecords = await fetchRecords({ course });
-    //       Object.keys(courseRecords).forEach(key => {
-    //         records[key].push(...courseRecords[key]);
-    //       });
-    //     }
-    //     return res.status(200).json(records);
-    //   }
+    let requests = [];
+    requests = await Request.find();
+    return res.status(200).json(requests);
   } catch (e) {
     console.log(e);
     return res.status(500).json({ msg: "Request failed" });
