@@ -69,7 +69,7 @@ class Routes extends Component {
           <CommonRoute exact path="/booking" component={Bookings} />
           <CommonRoute exact path="/installrequest" component={WIP} />
           <AdminRoute exact path="/admin/installrequest" component={WIP} />
-          <AdminRoute exact path="/admin/booking" component={WIP} />
+          <AdminRoute exact path="/admin/booking" component={AdminBookings} />
           <AdminRoute exact path="/admin/servermon" component={WIP} />
           <Route
             path="/login"
