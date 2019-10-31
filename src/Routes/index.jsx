@@ -19,6 +19,7 @@ import "../styles/progres-bar.css";
 import { Home, Login, Bookings, ErrorPage } from "./LazyLoadRoutes.jsx";
 import Logout from "./Logout.jsx";
 import WIP from "../components/WIP.jsx";
+import AdminBookings from "../components/AdminBookings.jsx";
 
 loadProgressBar();
 

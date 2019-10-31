@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-class AdminBookings extends Component {
+class RequestViewer extends Component {
   constructor(props) {
     super(props);
   }
@@ -19,11 +19,11 @@ class AdminBookings extends Component {
           </Col>
         </Row>
         <Row>
-          <RequestViewer />
+
         </Row>
       </Container>
     );
   }
 }
 
-export default AdminBookings;
+export default RequestViewer;
