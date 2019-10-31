@@ -4,9 +4,9 @@ const moment = require("moment");
 
 let sendBookingRequest = (bookingReqData, callback) => {
   let date = bookingReqData.date;
-  let year = date && date.get("year");
-  let month = date && date.get("month");
-  let dow = date && date.get("date");
+  let year = date && date.getYear();
+  let month = date && date.getMonth();
+  let dow = date && date.getDate();
   let start = moment(bookingReqData.start);
   start.set("year", year);
   start.set("month", month);
@@ -27,25 +27,23 @@ let sendBookingRequest = (bookingReqData, callback) => {
       end.toISOString()
   );
   console.log(apiUrl);
-  axios
-    .get(apiUrl)
-    .then(response => {
-      if (response.status === 200) {
-        let events = response.data.items;
-        if (events.length === 0) {
-          console.log("This booking request is valid");
-          callback(null, events.length);
-        } else {
-          console.log("This booking request is invalid");
-          callback(null, events.length);
-        }
+  axios.get(apiUrl).then(response => {
+    if (response.status === 200) {
+      let events = response.data.items;
+      if (events.length === 0) {
+        console.log("This booking request is valid");
+        callback(null, events.length);
       } else {
-        callback(true, null);
+        console.log("This booking request is invalid");
+        callback(null, events.length);
       }
-    })
-    .catch(error => {
-      callback(error, null);
-    });
+    } else {
+      callback(true, null);
+    }
+  });
+  // .catch(error => {
+  //   callback(error, null);
+  // });
 };
 
 module.exports = { sendBookingRequest };

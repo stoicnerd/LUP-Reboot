@@ -8,7 +8,7 @@ import {
 import Button from "react-bootstrap/Button";
 import { sendBookingRequest } from "../utils/bookingRequester";
 import { axiosPOST } from "../utils/axiosClient";
-import {getDecodedToken} from "../utils/jwt";
+import { getDecodedToken } from "../utils/jwt";
 
 function log(msg, color) {
   color = color || "black";
@@ -61,14 +61,14 @@ function log(msg, color) {
 class BookingPicker extends Component {
   constructor(props) {
     super(props);
-    this.setState({
+    this.state = {
       date: new Date(),
       startTime: new Date(),
       endTime: new Date(),
       status: null,
       showModal: false,
       modalMsg: ""
-    });
+    };
   }
   componentDidMount() {
     console.log("BookingPicker Rendered");
@@ -86,30 +86,28 @@ class BookingPicker extends Component {
       //   }
       sendBookingRequest(bookingData, (err, length) => {
         if (err) {
-          alert("Please provide a valid Date, Start Time and End Time")
+          alert("Please provide a valid Date, Start Time and End Time");
           //this.setState({modalMsg:"Please provide a valid Date, Start Time and End Time"})
           log("Please provide a valid Date, Start Time and End Time", "error");
           return;
         } else {
-          alert("The slot is available")
+          alert("The slot is available");
           let data = getDecodedToken();
-          bookingData.start().date(bookingData.date.date());
-          bookingData.end().date(bookingData.date.date());
-          let req = {
-            name: data.name,
-            email: data.email,
-            status: "Requested",
-            startTime: bookingData.start.toDate(),
-            endTime: bookingData.end.toDate(),
-            description:"Anything"
-          }
-          axiosPOST(`/api/requests`, { req })
-          .then(res => {
-            console.log(res);
-            console.log(res.data);
-          })
-          //this.setState({modalMsg:"The slot is available"})
-          log("The slot is available", "success");
+          console.log(bookingData);
+          // bookingData.start().date(bookingData.date.date());
+          // bookingData.end().date(bookingData.date.date());
+          // let req = {
+          //   name: data.name,
+          //   email: data.email,
+          //   status: "Requested",
+          //   startTime: bookingData.start.toDate(),
+          //   endTime: bookingData.end.toDate(),
+          //   description: "Anything"
+          // };
+          // axiosPOST(`/api/requests`, { req }).then(res => {
+          //   console.log(res);
+          //   console.log(res.data);
+          // });
           return;
         }
       });
