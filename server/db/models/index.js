@@ -3,4 +3,4 @@
 // anywhere the User model needs to be used.
 
 require("./admin.js");
-require("./request.js")
+require("./request.js");
