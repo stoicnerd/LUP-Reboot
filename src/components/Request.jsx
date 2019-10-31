@@ -20,7 +20,7 @@ class Request extends Component {
   }
 
   render() {
-    let isAdmin = getDecodedToken().role === "admin";
+    let isAdmin = getDecodedToken().role === "notAdmin";
     if (!isAdmin) return <div />;
     if (!this.state.request) return <div />;
     return (

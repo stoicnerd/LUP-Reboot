@@ -11,9 +11,9 @@ import SeeAll from "./SeeAll";
 class Bookings extends Component {
   constructor(props) {
     super(props);
-    this.state({
+    this.state = {
       requests: []
-    });
+    };
   }
   componentDidMount() {
     console.log("Bookings REACHED");
@@ -22,6 +22,7 @@ class Bookings extends Component {
   async getRequests() {
     let allRequests = [];
     let decoded = getDecodedToken();
+    console.log(decoded);
     await axiosGET(`/api/requests/${decoded.email}`).then(res => {
       // console.log(res);
       // console.log("Hi");
@@ -52,6 +53,8 @@ class Bookings extends Component {
             <h1 className="text-center">THIS IS THE Bookings Component</h1>
           </Col>
         </Row>
+        <Row>Current Lab Booking Requests</Row>
+        <div>{this.generateRequestsList()}</div>
         <Row>
           <Col>
             <iframe
