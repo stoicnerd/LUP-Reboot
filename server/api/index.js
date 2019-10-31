@@ -11,5 +11,6 @@ router.all("/", (req, res, next) => {
 });
 
 router.use("/auth", auth);
-router.use("/requests",requests);
+router.use("/requests", requests);
+
 module.exports = router;
