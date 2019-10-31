@@ -9,7 +9,7 @@ const Request = mongoose.model("Request");
 router.get("/", checkToken(["admin"]), async (req, res, next) => {
   try {
     let requests = [];
-    requests = await Request.find();
+    requests = await Request.find({status: "Requested"});
     return res.status(200).json(requests);
   } catch (e) {
     console.log(e);
