@@ -130,7 +130,11 @@ class BookingPicker extends Component {
           minutesStep={5}
         />
         <br />
-        <Button style={{ margin: "15px"}} variant="secondary" onClick={checkValidBooking}>
+        <Button
+          style={{ margin: "15px" }}
+          variant="secondary"
+          onClick={checkValidBooking}
+        >
           Request Booking
         </Button>
       </MuiPickersUtilsProvider>
