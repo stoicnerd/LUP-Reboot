@@ -3,10 +3,12 @@ const _ = require("underscore");
 const moment = require("moment");
 
 let sendBookingRequest = (bookingReqData, callback) => {
-  let date = bookingReqData.date;
-  let year = date && date.getYear();
-  let month = date && date.getMonth();
-  let dow = date && date.getDate();
+  let date = moment(bookingReqData.date);
+  console.log("Booking Requester Data");
+  console.log(bookingReqData);
+  let year = date && date.year();
+  let month = date && date.month();
+  let dow = date && date.date();
   let start = moment(bookingReqData.start);
   start.set("year", year);
   start.set("month", month);
