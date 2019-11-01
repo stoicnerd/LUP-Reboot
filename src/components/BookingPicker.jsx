@@ -9,6 +9,8 @@ import Button from "react-bootstrap/Button";
 import { sendBookingRequest } from "../utils/bookingRequester";
 import { axiosPOST } from "../utils/axiosClient";
 import { getDecodedToken } from "../utils/jwt";
+import moment from "moment";
+import axios from "axios";
 
 function log(msg, color) {
   color = color || "black";
@@ -93,21 +95,33 @@ class BookingPicker extends Component {
         } else {
           alert("The slot is available");
           let data = getDecodedToken();
-          console.log(bookingData);
+          // console.log(bookingData);
+          let date = moment(bookingData.date);
+          let sTime = moment(bookingData.start);
+          let eTime = moment(bookingData.end);
+          sTime.date(date.date());
+          eTime.date(date.date());
+          sTime.month(date.date());
+          eTime.month(date.month());
+          sTime.year(date.year());
+          eTime.year(date.year());
+          let reqData = {
+            name: data.name,
+            email: data.email,
+            status: "Requested",
+            startTime: sTime.toDate(),
+            endTime: eTime.toDate(),
+            description: "Anything"
+          };
           // bookingData.start().date(bookingData.date.date());
           // bookingData.end().date(bookingData.date.date());
           // let req = {
-          //   name: data.name,
-          //   email: data.email,
-          //   status: "Requested",
-          //   startTime: bookingData.start.toDate(),
-          //   endTime: bookingData.end.toDate(),
-          //   description: "Anything"
           // };
-          // axiosPOST(`/api/requests`, { req }).then(res => {
-          //   console.log(res);
-          //   console.log(res.data);
-          // });
+          console.log(reqData);
+          axios.post('localhost:4000/api/requests/', reqData).then(res => {
+            console.log(res);
+            console.log(res.data);
+          });
           return;
         }
       });
