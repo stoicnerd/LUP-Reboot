@@ -53,8 +53,12 @@ class Bookings extends Component {
             <h1 className="text-center">THIS IS THE Bookings Component</h1>
           </Col>
         </Row>
-        <Row>Current Lab Booking Requests</Row>
-        <div>{this.generateRequestsList()}</div>
+        <Row ><h3>Current Lab Booking Requests</h3></Row>
+        <div className="m:2">{this.generateRequestsList()}</div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <Row>
           <Col>
             <iframe
