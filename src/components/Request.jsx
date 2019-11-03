@@ -27,20 +27,29 @@ class Request extends Component {
     return (
       <Container>
         <Row>
-        <Card style={{ width: '72rem' }}>
-        <Card.Img variant="top" src="holder.js/100px180" />
-        <Card.Body>
-          <Card.Title>Card Title</Card.Title>
-          <Card.Text>
-            <Row className='m-1'>Name: {this.state && this.state.request.name}</Row>
-            <Row className='m-1'>Email: {this.state && this.state.request.email}</Row>
-            <Row className='m-1'>startTime: {this.state && this.state.request.startTime}</Row>
-            <Row className='m-1'>endTime: {this.state && this.state.request.endTime}</Row>
-            <Row className='m-1'>description: {this.state && this.state.request.description}</Row>
-          </Card.Text>
-          <Button className='m-1'>Cancel Booking</Button>
-        </Card.Body>
-        </Card>
+          <Card style={{ width: "72rem" }}>
+            <Card.Body>
+              <Card.Title>Card Title</Card.Title>
+              <Card.Text>
+                <Row className="m-1" style={{ fontSize: "55px" }}>
+                  Name: {this.state && this.state.request.name}
+                </Row>
+                <Row className="m-1">
+                  Email: {this.state && this.state.request.email}
+                </Row>
+                <Row className="m-1">
+                  startTime: {this.state && this.state.request.startTime}
+                </Row>
+                <Row className="m-1">
+                  endTime: {this.state && this.state.request.endTime}
+                </Row>
+                <Row className="m-1">
+                  description: {this.state && this.state.request.description}
+                </Row>
+              </Card.Text>
+              <Button className="m-1">Cancel Booking</Button>
+            </Card.Body>
+          </Card>
         </Row>
       </Container>
     );

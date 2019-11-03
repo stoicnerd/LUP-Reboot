@@ -10,7 +10,6 @@ import { sendBookingRequest } from "../utils/bookingRequester";
 import { axiosPOST } from "../utils/axiosClient";
 import { getDecodedToken } from "../utils/jwt";
 import moment from "moment";
-import axios from "axios";
 
 function log(msg, color) {
   color = color || "black";
@@ -118,7 +117,7 @@ class BookingPicker extends Component {
           // let req = {
           // };
           console.log(reqData);
-          axios.post('localhost:4000/api/requests/', reqData).then(res => {
+          axiosPOST("/api/requests/", reqData).then(res => {
             console.log(res);
             console.log(res.data);
           });
