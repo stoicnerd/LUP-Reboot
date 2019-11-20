@@ -21,11 +21,16 @@ const MyCalendar = props => (
       startAccessor="start"
       endAccessor="end"
       style={{ height: 500, width: 900 }}
-      events={[]}
+      events={[
+        {
+          title: "All Day Event very long title",
+          start: new Date("2019-11-25T00:00"),
+          end: new Date("2019-11-25T23:00")
+        }
+      ]}
     />
   </div>
 );
-
 class Bookings extends Component {
   constructor(props) {
     super(props);
@@ -64,13 +69,6 @@ class Bookings extends Component {
     return <SeeAll items={allrequests} count={50} name="requests" />;
   }
   render() {
-    const events = [
-      {
-        title: "All Day Event very long title",
-        start: new Date(2019, 11, 12, 10, 33, 30, 0),
-        end: new Date(2019, 11, 12, 11, 33, 30, 0)
-      }
-    ];
     return (
       <Container>
         <Row>
@@ -88,11 +86,7 @@ class Bookings extends Component {
         <br />
         <Row>
           <Col>
-            <MyCalendar
-              events={events}
-              startAccessor="start"
-              endAccessor="end"
-            />
+            <MyCalendar />
           </Col>
           <Col>
             <h1>New Booking</h1>
