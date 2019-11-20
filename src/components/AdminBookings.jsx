@@ -23,6 +23,7 @@ class AdminBookings extends Component {
       // console.log(res);
       // console.log("Hi");
       allRequests = res.data;
+      console.log(allRequests);
     });
     this.setState({ requests: allRequests });
   }

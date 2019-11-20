@@ -35,12 +35,14 @@ class Bookings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      requests: []
+      requests: [],
+      events: []
     };
   }
   componentDidMount() {
     console.log("Bookings REACHED");
     this.getRequests();
+    this.getEvents();
   }
   async getRequests() {
     let allRequests = [];
@@ -52,6 +54,17 @@ class Bookings extends Component {
       allRequests = res.data;
     });
     this.setState({ requests: allRequests });
+  }
+
+  async getEvents() {
+    let allEvents = [];
+    await axiosGET(`http://localhost:4000/api/events/`).then(res => {
+      // console.log(res);
+      // console.log("Hi");
+      allEvents = res.data;
+      console.log(allEvents);
+    });
+    this.setState({ events: allEvents });
   }
 
   generateRequestsList() {
@@ -69,6 +82,8 @@ class Bookings extends Component {
     return <SeeAll items={allrequests} count={50} name="requests" />;
   }
   render() {
+    console.log(this.state.events);
+    console.log(this.state.requests);
     return (
       <Container>
         <Row>
