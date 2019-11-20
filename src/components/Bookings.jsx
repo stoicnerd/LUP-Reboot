@@ -8,6 +8,24 @@ import { getDecodedToken } from "../utils/jwt";
 import Request from "./Request";
 import SeeAll from "./SeeAll";
 
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import moment from "moment";
+
+const localizer = momentLocalizer(moment);
+
+const MyCalendar = props => (
+  <div>
+    <Calendar
+      localizer={localizer}
+      startAccessor="start"
+      endAccessor="end"
+      style={{ height: 500, width: 900 }}
+      events={[]}
+    />
+  </div>
+);
+
 class Bookings extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +64,13 @@ class Bookings extends Component {
     return <SeeAll items={allrequests} count={50} name="requests" />;
   }
   render() {
+    const events = [
+      {
+        title: "All Day Event very long title",
+        start: new Date(2019, 11, 12, 10, 33, 30, 0),
+        end: new Date(2019, 11, 12, 11, 33, 30, 0)
+      }
+    ];
     return (
       <Container>
         <Row>
@@ -63,14 +88,10 @@ class Bookings extends Component {
         <br />
         <Row>
           <Col>
-            <iframe
-              title="Current CSIS Lab Bookings"
-              src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Asia%2FKolkata&amp;src=amNmb3UwbTN2dnNzNWh1bW12a25lNzBkNzBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%233F51B5&amp;showTitle=0"
-              style={{ borderWidth: 0 }}
-              width="800"
-              height="600"
-              frameBorder="0"
-              scrolling="no"
+            <MyCalendar
+              events={events}
+              startAccessor="start"
+              endAccessor="end"
             />
           </Col>
           <Col>
