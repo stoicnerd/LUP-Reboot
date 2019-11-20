@@ -100,7 +100,7 @@ class BookingPicker extends Component {
           let eTime = moment(bookingData.end);
           sTime.date(date.date());
           eTime.date(date.date());
-          sTime.month(date.date());
+          sTime.month(date.month());
           eTime.month(date.month());
           sTime.year(date.year());
           eTime.year(date.year());

@@ -8,16 +8,41 @@ import { getDecodedToken } from "../utils/jwt";
 import Request from "./Request";
 import SeeAll from "./SeeAll";
 
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import moment from "moment";
+
+const localizer = momentLocalizer(moment);
+
+const MyCalendar = props => (
+  <div>
+    <Calendar
+      localizer={localizer}
+      startAccessor="start"
+      endAccessor="end"
+      style={{ height: 500, width: 900 }}
+      events={[
+        {
+          title: "All Day Event very long title",
+          start: new Date("2019-11-25T00:00"),
+          end: new Date("2019-11-25T23:00")
+        }
+      ]}
+    />
+  </div>
+);
 class Bookings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      requests: []
+      requests: [],
+      events: []
     };
   }
   componentDidMount() {
     console.log("Bookings REACHED");
     this.getRequests();
+    this.getEvents();
   }
   async getRequests() {
     let allRequests = [];
@@ -29,6 +54,17 @@ class Bookings extends Component {
       allRequests = res.data;
     });
     this.setState({ requests: allRequests });
+  }
+
+  async getEvents() {
+    let allEvents = [];
+    await axiosGET(`http://localhost:4000/api/events/`).then(res => {
+      // console.log(res);
+      // console.log("Hi");
+      allEvents = res.data;
+      console.log(allEvents);
+    });
+    this.setState({ events: allEvents });
   }
 
   generateRequestsList() {
@@ -46,6 +82,8 @@ class Bookings extends Component {
     return <SeeAll items={allrequests} count={50} name="requests" />;
   }
   render() {
+    console.log(this.state.events);
+    console.log(this.state.requests);
     return (
       <Container>
         <Row>
@@ -63,15 +101,7 @@ class Bookings extends Component {
         <br />
         <Row>
           <Col>
-            <iframe
-              title="Current CSIS Lab Bookings"
-              src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Asia%2FKolkata&amp;src=amNmb3UwbTN2dnNzNWh1bW12a25lNzBkNzBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%233F51B5&amp;showTitle=0"
-              style={{ borderWidth: 0 }}
-              width="800"
-              height="600"
-              frameBorder="0"
-              scrolling="no"
-            />
+            <MyCalendar />
           </Col>
           <Col>
             <h1>New Booking</h1>
