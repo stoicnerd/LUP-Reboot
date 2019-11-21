@@ -62,4 +62,23 @@ router.post("/", checkToken(["notAdmin", "admin"]), async (req, res, next) => {
   }
 });
 
+router.post(
+  "/:id/:newStatus",
+  checkToken(["admin"]),
+  async (req, res, next) => {
+    try {
+      await Request.findOneAndUpdate(
+        { _id: req.params.id },
+        { status: req.params.newStatus }
+      );
+      return res
+        .status(200)
+        .json({ msg: "Successfully " + req.params.newStatus + " the request" });
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({ msg: "Request Failed" });
+    }
+  }
+);
+
 module.exports = router;

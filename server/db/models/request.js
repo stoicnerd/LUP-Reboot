@@ -11,7 +11,7 @@ const requestSchema = new Schema(
     status: {
       type: String,
       required: true
-    }, // ['Accepted', 'Rejected', 'Waiting', 'Requested']
+    }, // ['Approved', 'Rejected', 'Waiting', 'Requested', 'Cancelled']
     startTime: {
       type: Date,
       required: true
