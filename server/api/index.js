@@ -3,6 +3,7 @@ const router = express.Router();
 
 const auth = require("./auth");
 const requests = require("./requests");
+const events = require("./events");
 const checkToken = require("./authMiddleware");
 
 router.all("/", (req, res, next) => {
@@ -12,5 +13,6 @@ router.all("/", (req, res, next) => {
 
 router.use("/auth", auth);
 router.use("/requests", requests);
+router.use("/events", events);
 
 module.exports = router;
