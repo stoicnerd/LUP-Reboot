@@ -1,13 +1,15 @@
 //import { transporter } from "./email.js";
-var nodemailer = require("nodemailer");
-require("dotenv").config();
-var transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.user,
-    pass: process.env.pass
-  }
-});
+//import { axiosPOST } from "../../src/utils/axiosClient";
+const axios = require("axios");
+// var nodemailer = require("nodemailer");
+// require("dotenv").config();
+// var transporter = nodemailer.createTransport({
+//   service: "gmail",
+//   auth: {
+//     user: process.env.user,
+//     pass: process.env.pass
+//   }
+// });
 
 const express = require("express");
 const router = express.Router();
@@ -82,20 +84,32 @@ router.post(
         { _id: req.params.id },
         { status: req.params.newStatus }
       );
-      var mailOptions = {
-        from: process.env.user,
-        to: request.email,
-        subject: "Regarding your lab booking",
-        text: `your request for ${request.startTime} has been ${req.params.newStatus}`
-      };
 
-      transporter.sendMail(mailOptions, function(error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Email sent: " + info.response);
-        }
+      var data = {
+        email: request.email,
+        subject: "Regarding your lab booking",
+        text: `your request for ${request.startTime} has been ${
+          req.params.newStatus
+        }`
+      };
+      await axios.post("api/email/", data).then(res => {
+        console.log(res);
       });
+
+      // var mailOptions = {
+      //   from: process.env.user,
+      //   to: request.email,
+      //   subject: "Regarding your lab booking",
+      //   text: `your request for ${request.startTime} has been ${req.params.newStatus}`
+      // };
+      //
+      // transporter.sendMail(mailOptions, function(error, info) {
+      //   if (error) {
+      //     console.log(error);
+      //   } else {
+      //     console.log("Email sent: " + info.response);
+      //   }
+      // });
 
       if (req.params.newStatus === "Approved") {
         console.log("Sourav");
