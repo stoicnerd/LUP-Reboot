@@ -52,6 +52,7 @@ class AdminRequest extends Component {
       axiosPOST(`/api/requests/${this.state.request._id}/Rejected`).then(
         res => {
           console.log(res.data.msg);
+          this.setState({ request: null });
         }
       );
     };
