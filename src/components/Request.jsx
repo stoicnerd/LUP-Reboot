@@ -4,9 +4,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { getDecodedToken } from "../utils/jwt";
-import { axiosGET } from "../utils/axiosClient";
+import { axiosGET, axiosPOST } from "../utils/axiosClient";
 import Button from "react-bootstrap/Button";
-//const axios = require('axios');
 
 class Request extends Component {
   constructor(props) {
@@ -21,6 +20,15 @@ class Request extends Component {
   }
 
   render() {
+    let cancelBooking = () => {
+      axiosPOST(`/api/requests/${this.state.request._id}/Cancelled`).then(
+        res => {
+          console.log(res.data.msg);
+          this.setState({ request: null });
+        }
+      );
+    };
+
     let isAdmin = getDecodedToken().role === "notAdmin";
     if (!isAdmin) return <div />;
     if (!this.state.request) return <div />;
@@ -31,7 +39,7 @@ class Request extends Component {
             <Card.Body>
               <Card.Title>Card Title</Card.Title>
               <Card.Text>
-                <Row className="m-1" style={{ fontSize: "55px" }}>
+                <Row className="m-1" style={{ fontSize: "20px" }}>
                   Name: {this.state && this.state.request.name}
                 </Row>
                 <Row className="m-1">
@@ -46,8 +54,13 @@ class Request extends Component {
                 <Row className="m-1">
                   description: {this.state && this.state.request.description}
                 </Row>
+                <Row className="m-1">
+                  status: {this.state && this.state.request.status}
+                </Row>
               </Card.Text>
-              <Button className="m-1">Cancel Booking</Button>
+              <Button className="m-1" onClick={cancelBooking}>
+                Cancel Booking
+              </Button>
             </Card.Body>
           </Card>
         </Row>

@@ -1,3 +1,14 @@
+//import { transporter } from "./email.js";
+var nodemailer = require("nodemailer");
+require("dotenv").config();
+var transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.user,
+    pass: process.env.pass
+  }
+});
+
 const express = require("express");
 const router = express.Router();
 
@@ -67,10 +78,62 @@ router.post(
   checkToken(["admin"]),
   async (req, res, next) => {
     try {
-      await Request.findOneAndUpdate(
+      let request = await Request.findOneAndUpdate(
         { _id: req.params.id },
         { status: req.params.newStatus }
       );
+      var mailOptions = {
+        from: process.env.user,
+        to: request.email,
+        subject: "Regarding your lab booking",
+        text: `your request for ${request.startTime} has been ${req.params.newStatus}`
+      };
+
+      transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
+
+      if (req.params.newStatus === "Approved") {
+        console.log("Sourav");
+        let request = await Request.find({ _id: req.params.id });
+        let requests = await Request.find();
+        console.log(request);
+        console.log(requests);
+        var i;
+        var requeststart = new Date(request[0].startTime);
+        var requestend = new Date(request[0].endTime);
+        let ids = [];
+        for (i = 0; i < requests.length; i++) {
+          var requestsstartDate = new Date(requests[i].startTime);
+          var requestsendDate = new Date(requests[i].endTime);
+          console.log(requeststart.getTime());
+          console.log(requestend.getTime());
+          console.log(requestsstartDate.getTime());
+          console.log(requestsendDate.getTime());
+          if (
+            (requestsstartDate.getTime() >= requeststart.getTime() &&
+              requestsstartDate.getTime() < requestend.getTime()) ||
+            (requestsendDate.getTime() > requeststart.getTime() &&
+              requestsendDate.getTime() <= requestend.getTime())
+          ) {
+            ids.push(requests[i]._id);
+          }
+        }
+        console.log("ids", ids);
+        for (i = 0; i < ids.length; i++) {
+          if (ids[i] !== request[0]._id) {
+            await Request.findOneAndUpdate(
+              { _id: ids[i] },
+              { status: "Rejected" }
+            );
+          }
+        }
+      }
+
       return res
         .status(200)
         .json({ msg: "Successfully " + req.params.newStatus + " the request" });
