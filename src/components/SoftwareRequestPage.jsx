@@ -28,14 +28,12 @@ class SoftwareRequestPage extends Component {
   render() {
     return (
       <Container>
-        <Row>
+        <Row style={{ padding: "2rem" }}>
           <Col>
-            <h1 className="text-center">
-              This is the Software Request Page for notAdmin.
-            </h1>
+            <h1 className="text-center">New Software Request</h1>
           </Col>
         </Row>
-        <Card>
+        <Card style={{ padding: "2rem" }}>
           <Row>
             <Col>
               <Form
@@ -68,6 +66,7 @@ class SoftwareRequestPage extends Component {
                     />
                   </Col>
                 </Form.Group>
+                <hr />
                 <Form.Group controlId="formSoftwareName">
                   <Form.Label>Software Name</Form.Label>
                   <Form.Control
@@ -80,6 +79,7 @@ class SoftwareRequestPage extends Component {
                     Case-sensitive in case of clashes
                   </Form.Text>
                 </Form.Group>
+                <hr />
                 <Form.Group controlId="formSoftwareLink">
                   <Form.Label>Software Link/Homepage</Form.Label>
                   <Form.Control
@@ -89,6 +89,7 @@ class SoftwareRequestPage extends Component {
                     placeholder="Enter Software Link"
                   />
                 </Form.Group>
+                <hr />
                 <Form.Group controlId="formSoftwareDesc">
                   <Form.Label>Reason for Request</Form.Label>
                   <Form.Control
@@ -99,11 +100,7 @@ class SoftwareRequestPage extends Component {
                     placeholder="For what purpose do you want this software?"
                   />
                 </Form.Group>
-                <Button
-                  style={{ margin: "15px" }}
-                  variant="secondary"
-                  type="submit"
-                >
+                <Button size="lg" block variant="success" type="submit">
                   Request
                 </Button>
               </Form>
