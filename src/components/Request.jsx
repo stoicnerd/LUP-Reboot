@@ -56,9 +56,18 @@ class Request extends Component {
                 status: {this.state && this.state.request.status}
               </Row>
             </Card>
-            <Button className="m-1" onClick={cancelBooking}>
+            {this.state.request.status === "Approved" ? (
+              <Button className="m-1" onClick={cancelBooking}>
+                Cancel Booking
+              </Button>
+            ) : this.state.request.status === "Requested" ? (
+              <Button className="m-1" onClick={cancelBooking}>
+                Cancel Request
+              </Button>
+            ) : null}
+            {/* <Button className="m-1" onClick={cancelBooking}>
               Cancel Booking
-            </Button>
+            </Button> */}
           </Card>
         </Row>
       </Container>
