@@ -28,3 +28,12 @@ export const ErrorPage = Loadable({
   loader: () => import("./404/404.jsx"),
   loading: () => <div>Loading...</div>
 });
+
+export const SoftwareRequestPage = Loadable({
+  loader: () => import("../components/SoftwareRequestPage"),
+  loading: () => <div>Loading...</div>
+});
+export const AdminSoftwareRequestPage = Loadable({
+  loader: () => import("../components/AdminSoftwareRequestPage"),
+  loading: () => <div>Loading...</div>
+});

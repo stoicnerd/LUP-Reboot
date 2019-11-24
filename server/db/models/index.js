@@ -4,3 +4,4 @@
 
 require("./admin.js");
 require("./request.js");
+require("./softwareRequest.js");

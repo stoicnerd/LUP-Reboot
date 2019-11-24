@@ -16,10 +16,18 @@ import { loadProgressBar } from "axios-progress-bar";
 import "../styles/progres-bar.css";
 
 // Import lazy loaded route components
-import { Home, Login, Bookings, ErrorPage } from "./LazyLoadRoutes.jsx";
+import {
+  Home,
+  Login,
+  Bookings,
+  ErrorPage,
+  AdminSoftwareRequestPage,
+  SoftwareRequestPage
+} from "./LazyLoadRoutes.jsx";
 import Logout from "./Logout.jsx";
 import WIP from "../components/WIP.jsx";
 import AdminBookings from "../components/AdminBookings.jsx";
+import AdminRequest from "../components/AdminRequest";
 
 loadProgressBar();
 
@@ -68,8 +76,16 @@ class Routes extends Component {
         {decodedToken && <Header decodedToken={decodedToken} />}
         <Switch className="main">
           <CommonRoute exact path="/booking" component={Bookings} />
-          <CommonRoute exact path="/installrequest" component={WIP} />
-          <AdminRoute exact path="/admin/installrequest" component={WIP} />
+          <CommonRoute
+            exact
+            path="/installrequest"
+            component={SoftwareRequestPage}
+          />
+          <AdminRoute
+            exact
+            path="/admin/installrequest"
+            component={AdminSoftwareRequestPage}
+          />
           <AdminRoute exact path="/admin/booking" component={AdminBookings} />
           <AdminRoute exact path="/admin/servermon" component={WIP} />
           <Route
