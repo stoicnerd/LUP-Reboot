@@ -6,6 +6,7 @@ const requests = require("./requests");
 const events = require("./events");
 const email = require("./email");
 const checkToken = require("./authMiddleware");
+const softwareRequests = require("./softwareRequests");
 
 router.all("/", (req, res, next) => {
   console.log(`${req.method} for ${req.url}`);
@@ -15,6 +16,6 @@ router.all("/", (req, res, next) => {
 router.use("/auth", auth);
 router.use("/requests", requests);
 router.use("/events", events);
+router.use("/softwareRequests", softwareRequests);
 router.use("/email", email);
-
 module.exports = router;
