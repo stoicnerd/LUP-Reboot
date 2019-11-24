@@ -83,6 +83,7 @@ class BookingPicker extends Component {
             console.log(res);
             console.log(res.data);
           });
+          alert("The request has been sent");
           return;
         }
       } else {
