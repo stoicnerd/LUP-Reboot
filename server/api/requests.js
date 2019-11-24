@@ -77,13 +77,14 @@ router.post("/", checkToken(["notAdmin", "admin"]), async (req, res, next) => {
 
 router.post(
   "/:id/:newStatus",
-  checkToken(["admin"]),
+  checkToken(["notAdmin", "admin"]),
   async (req, res, next) => {
     try {
       let request = await Request.findOneAndUpdate(
         { _id: req.params.id },
         { status: req.params.newStatus }
       );
+      console.log("reached here");
 
       var data = {
         email: request.email,
@@ -92,9 +93,9 @@ router.post(
           req.params.newStatus
         }`
       };
-      await axios.post("api/email/", data).then(res => {
-        console.log(res);
-      });
+      // await axios.post("api/email/", data).then(res => {
+      //   console.log(res);
+      // });
 
       // var mailOptions = {
       //   from: process.env.user,

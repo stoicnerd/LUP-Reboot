@@ -21,7 +21,7 @@ class Request extends Component {
 
   render() {
     let cancelBooking = () => {
-      axiosPOST(`/api/requests/${this.state.request._id}/Cancelled`).then(
+      axiosPOST(`/api/requests/${this.state.request._id}/Cancelled/`).then(
         res => {
           console.log(res.data.msg);
           this.setState({ request: null });
