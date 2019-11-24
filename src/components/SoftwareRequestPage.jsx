@@ -7,7 +7,6 @@ import Form from "react-bootstrap/Form";
 import { getDecodedToken } from "../utils/jwt";
 import { Card } from "@material-ui/core";
 import { axiosPOST } from "../utils/axiosClient";
-import { format } from "path";
 
 class SoftwareRequestPage extends Component {
   constructor(props) {
@@ -27,24 +26,6 @@ class SoftwareRequestPage extends Component {
     console.log(this.state.data);
   }
   render() {
-    let triall = () => {
-      document.getElementById("formSoftwareDesc").reset();
-    };
-    let sendSoftReq = () => {
-      let d = getDecodedToken();
-      let reqData = {
-        requesterName: d.name,
-        requesterEmail: d.email,
-        softwareName: this.state && this.state.softName,
-        softwareLink: this.state && this.state.softLink,
-        status: "Requested",
-        description: this.state && this.state.desc
-      };
-      axiosPOST("/api/softwareRequests/", reqData).then(res => {
-        console.log(res);
-        console.log(res.data);
-      });
-    };
     return (
       <Container>
         <Row>

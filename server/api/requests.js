@@ -118,11 +118,10 @@ router.post(
       });
 
       if (req.params.newStatus === "Approved") {
-        console.log("Sourav");
         let request = await Request.find({ _id: req.params.id });
         let requests = await Request.find();
-        console.log(request);
-        console.log(requests);
+        console.log("request", request);
+        console.log("requests", requests);
         var i;
         var requeststart = new Date(request[0].startTime);
         var requestend = new Date(request[0].endTime);
@@ -130,21 +129,25 @@ router.post(
         for (i = 0; i < requests.length; i++) {
           var requestsstartDate = new Date(requests[i].startTime);
           var requestsendDate = new Date(requests[i].endTime);
-          console.log(requeststart.getTime());
-          console.log(requestend.getTime());
-          console.log(requestsstartDate.getTime());
-          console.log(requestsendDate.getTime());
+          // console.log(requeststart.getTime());
+          // console.log(requestend.getTime());
+          // console.log(requestsstartDate.getTime());
+          // console.log(requestsendDate.getTime());
           if (
             (requestsstartDate.getTime() >= requeststart.getTime() &&
               requestsstartDate.getTime() < requestend.getTime()) ||
             (requestsendDate.getTime() > requeststart.getTime() &&
               requestsendDate.getTime() <= requestend.getTime())
           ) {
-            ids.push(requests[i]._id);
+            if (requests[i].status === "Requested") {
+              ids.push(requests[i]._id);
+            }
           }
         }
         console.log("ids", ids);
         for (i = 0; i < ids.length; i++) {
+          console.log("ids[i]", ids[i]);
+          console.log("request[0]._id", request[0]._id);
           if (ids[i] !== request[0]._id) {
             await Request.findOneAndUpdate(
               { _id: ids[i] },
