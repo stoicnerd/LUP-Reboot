@@ -1,16 +1,17 @@
-//import { transporter } from "./email.js";
-//import { axiosPOST } from "../../src/utils/axiosClient";
-const axios = require("axios");
-// var nodemailer = require("nodemailer");
-// require("dotenv").config();
-// var transporter = nodemailer.createTransport({
-//   service: "gmail",
-//   auth: {
-//     user: process.env.user,
-//     pass: process.env.pass
-//   }
-// });
-
+// import { transporter } from "./email.js";
+// import { axiosPOST } from "../../src/utils/axiosClient";
+var nodemailer = require("nodemailer");
+require("dotenv").config();
+var transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.user,
+    pass: process.env.pass
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
 const express = require("express");
 const router = express.Router();
 
@@ -84,7 +85,9 @@ router.post(
         { _id: req.params.id },
         { status: req.params.newStatus }
       );
-      console.log("reached here");
+      console.log(process.env.user);
+      console.log(process.env.pass);
+      console.log(request);
 
       var data = {
         email: request.email,
@@ -97,20 +100,22 @@ router.post(
       //   console.log(res);
       // });
 
-      // var mailOptions = {
-      //   from: process.env.user,
-      //   to: request.email,
-      //   subject: "Regarding your lab booking",
-      //   text: `your request for ${request.startTime} has been ${req.params.newStatus}`
-      // };
-      //
-      // transporter.sendMail(mailOptions, function(error, info) {
-      //   if (error) {
-      //     console.log(error);
-      //   } else {
-      //     console.log("Email sent: " + info.response);
-      //   }
-      // });
+      var mailOptions = {
+        from: process.env.user,
+        to: request.email,
+        subject: "Regarding your lab booking",
+        text: `your request for ${request.startTime} has been ${
+          req.params.newStatus
+        }`
+      };
+
+      transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
 
       if (req.params.newStatus === "Approved") {
         console.log("Sourav");
