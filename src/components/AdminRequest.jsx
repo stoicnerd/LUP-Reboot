@@ -20,22 +20,6 @@ class AdminRequest extends Component {
     this.setState({ request: this.props.request });
   }
 
-  // async approveRequest() {
-  //   await axiosGET(`/api/requests/${this.state.request._id}/Approved`).then(
-  //     res => {
-  //       console.log(res.data.msg);
-  //     }
-  //   );
-  // }
-
-  // async rejectRequest() {
-  //   await axiosGET(`/api/requests/${this.state.request._id}/Rejected`).then(
-  //     res => {
-  //       console.log(res.data.msg);
-  //     }
-  //   );
-  // }
-
   render() {
     let isAdmin = getDecodedToken().role === "admin";
     if (!isAdmin) return <div />;
@@ -45,6 +29,8 @@ class AdminRequest extends Component {
         res => {
           console.log(res.data.msg);
           this.setState({ request: null });
+          // eslint-disable-next-line no-restricted-globals
+          location.reload();
         }
       );
     };
@@ -53,35 +39,53 @@ class AdminRequest extends Component {
         res => {
           console.log(res.data.msg);
           this.setState({ request: null });
+          // eslint-disable-next-line no-restricted-globals
+          location.reload();
         }
       );
     };
     return (
       <Container>
         <Card style={{ width: "72rem" }}>
-          <Card>
-            <Row className="m-1">
-              Name: {this.state && this.state.request.name}
-            </Row>
-            <Row className="m-1">
-              Email: {this.state && this.state.request.email}
-            </Row>
-            <Row className="m-1">
-              startTime: {this.state && this.state.request.startTime}
-            </Row>
-            <Row className="m-1">
-              endTime: {this.state && this.state.request.endTime}
-            </Row>
-            <Row className="m-1">
-              description: {this.state && this.state.request.description}
-            </Row>
-          </Card>
-          <Button className="m-1" onClick={approveRequest}>
-            Approve
-          </Button>
-          <Button className="m-1" onClick={rejectRequest}>
-            Reject
-          </Button>
+          <Row>
+            <Col>
+              <Row className="m-1">
+                Name: {this.state && this.state.request.name}
+              </Row>
+              <Row className="m-1">
+                Email: {this.state && this.state.request.email}
+              </Row>
+              <Row className="m-1">
+                startTime: {this.state && this.state.request.startTime}
+              </Row>
+              <Row className="m-1">
+                endTime: {this.state && this.state.request.endTime}
+              </Row>
+              <Row className="m-1">
+                description: {this.state && this.state.request.description}
+              </Row>
+            </Col>
+            <Col>
+              <Button
+                variant="success"
+                className="m-1"
+                onClick={approveRequest}
+                block
+              >
+                Approve
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                block
+                variant="danger"
+                className="m-1"
+                onClick={rejectRequest}
+              >
+                Reject
+              </Button>
+            </Col>
+          </Row>
         </Card>
       </Container>
     );

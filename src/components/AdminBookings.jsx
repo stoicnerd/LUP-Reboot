@@ -45,13 +45,12 @@ class AdminBookings extends Component {
   render() {
     return (
       <Container>
-        <Row>
+        <Row style={{ textAlign: "center", padding: "10px" }}>
           <Col>
-            <h1 className="text-center">
-              THIS IS THE Admin's Bookings Component
-            </h1>
+            <h3>Lab Booking Requests</h3>
           </Col>
         </Row>
+        <hr />
         <Row>
           <div>{this.generateRequestsList()}</div>
         </Row>

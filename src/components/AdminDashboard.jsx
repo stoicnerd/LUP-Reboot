@@ -71,33 +71,6 @@ class AdminDashboard extends Component {
             CSIS Labs, BITS Pilani Hyderabad Campus
           </span>
         </div>
-        {/* <Row>
-          <Col>
-            <h1 className="text-center">THIS IS THE GREAT ADMIN'S DASHBOARD</h1>
-          </Col>
-        </Row>
-        <Card bg="secondary">
-          <Row>
-            <Col>
-              {" "}
-              <Link to={`/admin/booking`}>
-                <Button>Lab Bookings</Button>
-              </Link>
-            </Col>
-            <Col>
-              {" "}
-              <Link to={`/admin/installrequest`}>
-                <Button>Software Installation Requests</Button>
-              </Link>
-            </Col>
-            <Col>
-              {" "}
-              <Link to={`/admin/servermon`}>
-                <Button>Server Monitor</Button>
-              </Link>
-            </Col>
-          </Row>
-        </Card> */}
       </Container>
     );
   }
