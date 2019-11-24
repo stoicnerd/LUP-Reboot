@@ -110,7 +110,7 @@ class Bookings extends Component {
           <Col>
             <h1>New Booking</h1>
             {this.state.events.length === 0 ? (
-              <div />
+              <BookingPicker all={[]} />
             ) : (
               <BookingPicker all={this.state && this.state.events} />
             )}
