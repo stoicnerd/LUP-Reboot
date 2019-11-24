@@ -1,5 +1,17 @@
 const express = require("express");
 const router = express.Router();
+var nodemailer = require("nodemailer");
+require("dotenv").config();
+var transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.user,
+    pass: process.env.pass
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
 
 const checkToken = require("./authMiddleware");
 
@@ -65,10 +77,26 @@ router.post(
   checkToken(["admin"]),
   async (req, res, next) => {
     try {
-      await SoftwareRequest.findOneAndUpdate(
+      let request = await SoftwareRequest.findOneAndUpdate(
         { _id: req.params.id },
         { status: req.params.newStatus }
       );
+      var mailOptions = {
+        from: process.env.user,
+        to: request.requesterEmail,
+        subject: "Regarding your software installation request",
+        text: `your software installation request for ${
+          request.softwareName
+        } has been ${req.params.newStatus}`
+      };
+
+      transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
       return res.status(200).json({
         msg: "Successfully " + req.params.newStatus + " the software request"
       });

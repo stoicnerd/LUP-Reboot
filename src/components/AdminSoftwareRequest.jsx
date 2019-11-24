@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { getDecodedToken } from "../utils/jwt";
-import { axiosGET } from "../utils/axiosClient";
+import { axiosPOST } from "../utils/axiosClient";
 import Button from "react-bootstrap/Button";
 //const axios = require('axios');
 
@@ -21,6 +21,22 @@ class AdminSoftwareRequest extends Component {
   }
 
   render() {
+    let approveRequest = () => {
+      axiosPOST(
+        `/api/softwareRequests/${this.state.request._id}/Approved/`
+      ).then(res => {
+        console.log(res.data.msg);
+        this.setState({ request: null });
+      });
+    };
+    let rejectRequest = () => {
+      axiosPOST(
+        `/api/softwareRequests/${this.state.request._id}/Rejected/`
+      ).then(res => {
+        console.log(res.data.msg);
+        this.setState({ request: null });
+      });
+    };
     let isAdmin = getDecodedToken().role === "admin";
     if (!isAdmin) return <div />;
     if (!this.state.request) return <div />;
@@ -47,8 +63,12 @@ class AdminSoftwareRequest extends Component {
                   description: {this.state && this.state.request.description}
                 </Row>
               </Card>
-              <Button className="m-1">Approve</Button>
-              <Button className="m-1">Reject</Button>
+              <Button className="m-1" onClick={approveRequest}>
+                Approve
+              </Button>
+              <Button className="m-1" onClick={rejectRequest}>
+                Reject
+              </Button>
             </Card>
           </Card>
         </Row>
