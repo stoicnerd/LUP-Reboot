@@ -92,23 +92,30 @@ class Bookings extends Component {
       <Container>
         <Row>
           <Col>
-            <h1 className="text-center">THIS IS THE Bookings Component</h1>
           </Col>
         </Row>
-        <Row>
-          <h3>Current Lab Booking Requests</h3>
+        <Row style={{ textAlign: "center", padding: "10px" }}>
+          <Col>
+            <h3>Current Lab Booking Requests</h3>
+          </Col>
         </Row>
         <div className="m:2">{this.generateRequestsList()}</div>
         <br />
         <br />
-        <br />
-        <br />
-        <Row>
+        <hr style={{ border: "1.5px black solid" }} />
+        {/* <br />
+        <br /> */}
+        <Row style={{ textAlign: "center", padding: "10px" }}>
           <Col>
-            <div className="m:2">{this.getCalender()}</div>
+            <h3>New Lab Booking Request</h3>
+            <hr />
+          </Col>
+        </Row>
+        <Row style={{ padding: "15px" }}>
+          <Col>
+            <div className="">{this.getCalender()}</div>
           </Col>
           <Col>
-            <h1>New Booking</h1>
             {this.state.events.length === 0 ? (
               <BookingPicker all={[]} />
             ) : (
@@ -116,6 +123,21 @@ class Bookings extends Component {
             )}
           </Col>
         </Row>
+        <br />
+        <hr style={{ border: "1.5px black solid" }} />
+        <div
+          style={{
+            left: "0",
+            bottom: "10px",
+            width: "100%",
+            textAlign: "center"
+          }}
+        >
+          <span class="glyphicon glyphicon-calendar" />
+          <span style={{ color: "darkgrey" }}>
+            CSIS Labs, BITS Pilani Hyderabad Campus
+          </span>
+        </div>
       </Container>
     );
   }

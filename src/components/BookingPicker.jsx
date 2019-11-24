@@ -46,6 +46,10 @@ class BookingPicker extends Component {
         requestdate.getMonth(),
         requestdate.getDate()
       );
+      if (this.state.description === "") {
+        alert("Please provide lab booking reason");
+        return;
+      }
       if (requeststart.getTime() >= requestend.getTime()) {
         alert("Start Time should be before End Time");
         return;
@@ -82,8 +86,8 @@ class BookingPicker extends Component {
           axiosPOST("/api/requests/", reqData).then(res => {
             console.log(res);
             console.log(res.data);
+            alert("The request has been sent");
           });
-          alert("The request has been sent");
           return;
         }
       } else {
@@ -92,7 +96,7 @@ class BookingPicker extends Component {
     };
     return (
       <MuiPickersUtilsProvider utils={MomentUtils}>
-        <h2>Date</h2>
+        <h2>Date<span style={{color: "red"}}>*</span></h2>
         <DatePicker
           value={this.state ? this.state.date : new Date()}
           onChange={date => {}}
@@ -101,7 +105,8 @@ class BookingPicker extends Component {
           }}
           disablePast={true}
         />
-        <h2>Start Time</h2>
+        <hr />
+        <h2>Start Time<span style={{color: "red"}}>*</span></h2>
         <TimePicker
           value={this.state ? this.state.startTime : new Date()}
           onChange={date => {}}
@@ -110,7 +115,8 @@ class BookingPicker extends Component {
           }}
           minutesStep={5}
         />
-        <h2>End Time</h2>
+        <hr />
+        <h2>End Time<span style={{color: "red"}}>*</span></h2>
         <TimePicker
           value={this.state ? this.state.endTime : new Date()}
           onChange={date => {}}
@@ -119,10 +125,10 @@ class BookingPicker extends Component {
           }}
           minutesStep={5}
         />
-        <br />
+        <hr />
         <Form>
           <Form.Label>
-            <h5>Lab booking purpose</h5>
+            <h6>Lab booking purpose<span style={{color: "red"}}>*</span></h6>
           </Form.Label>
           <Form.Control
             onChange={event => {
