@@ -12,54 +12,6 @@ import { axiosPOST } from "../utils/axiosClient";
 import { getDecodedToken } from "../utils/jwt";
 import moment from "moment";
 
-function log(msg, color) {
-  color = color || "black";
-  var bgc = "White";
-  switch (color) {
-    case "success":
-      color = "Green";
-      bgc = "LimeGreen";
-      break;
-    case "info":
-      color = "DodgerBlue";
-      bgc = "Turquoise";
-      break;
-    case "error":
-      color = "Red";
-      bgc = "Black";
-      break;
-    case "start":
-      color = "OliveDrab";
-      bgc = "PaleGreen";
-      break;
-    case "warning":
-      color = "Tomato";
-      bgc = "Black";
-      break;
-    case "end":
-      color = "Orchid";
-      bgc = "MediumVioletRed";
-      break;
-    default:
-      color = color;
-  }
-
-  if (typeof msg == "object") {
-    console.log(msg);
-  } else if (typeof color == "object") {
-    console.log(
-      "%c" + msg,
-      "color: PowderBlue;font-weight:bold; background-color: RoyalBlue;"
-    );
-    console.log(color);
-  } else {
-    console.log(
-      "%c" + msg,
-      "color:" + color + ";font-weight:bold; background-color: " + bgc + ";"
-    );
-  }
-}
-
 class BookingPicker extends Component {
   constructor(props) {
     super(props);
@@ -75,49 +27,57 @@ class BookingPicker extends Component {
   }
   componentDidMount() {
     console.log("BookingPicker Rendered");
+    console.log(this.props.all);
   }
 
   render() {
     let checkValidBooking = () => {
-      let bookingData = {
-        date: this.state && this.state.date,
-        start: this.state && this.state.startTime,
-        end: this.state && this.state.endTime
-      };
-      //   if (bookingData.start.valueOf() > bookingData.end.valueOf()) {
-      //     console.log("Start Time is after End Time");
-      //   }
-      sendBookingRequest(bookingData, (err, length) => {
-        if (err) {
-          alert("Please provide a valid Date, Start Time and End Time");
-          //this.setState({modalMsg:"Please provide a valid Date, Start Time and End Time"})
-          log("Please provide a valid Date, Start Time and End Time", "error");
-          return;
-        } else {
-          alert("The slot is available");
+      let ids = [];
+      var requeststart = new Date(this.state.startTime);
+      var requestend = new Date(this.state.endTime);
+      var requestdate = new Date(this.state.date);
+      requestend.setFullYear(
+        requestdate.getFullYear(),
+        requestdate.getMonth(),
+        requestdate.getDate()
+      );
+      requeststart.setFullYear(
+        requestdate.getFullYear(),
+        requestdate.getMonth(),
+        requestdate.getDate()
+      );
+      if (requeststart.getTime() >= requestend.getTime()) {
+        alert("Start Time should be before End Time");
+        return;
+      }
+      var now = new Date();
+      if (requeststart.getTime() < now.getTime()) {
+        alert("The time has already passed, my child.");
+        return;
+      }
+      for (var i = 0; i < this.props.all.length; i++) {
+        var requestsstartDate = new Date(this.props.all[i].start);
+        var requestsendDate = new Date(this.props.all[i].end);
+        if (
+          (requestsstartDate.getTime() >= requeststart.getTime() &&
+            requestsstartDate.getTime() < requestend.getTime()) ||
+          (requestsendDate.getTime() > requeststart.getTime() &&
+            requestsendDate.getTime() <= requestend.getTime())
+        ) {
+          ids.push(this.props.all[i]._id);
+        }
+      }
+      if (ids.length === 0) {
+        {
           let data = getDecodedToken();
-          // console.log(bookingData);
-          let date = moment(bookingData.date);
-          let sTime = moment(bookingData.start);
-          let eTime = moment(bookingData.end);
-          sTime.date(date.date());
-          eTime.date(date.date());
-          sTime.month(date.month());
-          eTime.month(date.month());
-          sTime.year(date.year());
-          eTime.year(date.year());
           let reqData = {
             name: data.name,
             email: data.email,
             status: "Requested",
-            startTime: sTime.toDate(),
-            endTime: eTime.toDate(),
+            startTime: requeststart,
+            endTime: requestend,
             description: this.state.description
           };
-          // bookingData.start().date(bookingData.date.date());
-          // bookingData.end().date(bookingData.date.date());
-          // let req = {
-          // };
           console.log(reqData);
           axiosPOST("/api/requests/", reqData).then(res => {
             console.log(res);
@@ -125,7 +85,9 @@ class BookingPicker extends Component {
           });
           return;
         }
-      });
+      } else {
+        alert("This slot is not available. Please try some other time.");
+      }
     };
     return (
       <MuiPickersUtilsProvider utils={MomentUtils}>

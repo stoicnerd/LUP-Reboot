@@ -129,10 +129,6 @@ router.post(
         for (i = 0; i < requests.length; i++) {
           var requestsstartDate = new Date(requests[i].startTime);
           var requestsendDate = new Date(requests[i].endTime);
-          // console.log(requeststart.getTime());
-          // console.log(requestend.getTime());
-          // console.log(requestsstartDate.getTime());
-          // console.log(requestsendDate.getTime());
           if (
             (requestsstartDate.getTime() >= requeststart.getTime() &&
               requestsstartDate.getTime() < requestend.getTime()) ||
