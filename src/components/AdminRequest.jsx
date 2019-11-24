@@ -20,28 +20,28 @@ class AdminRequest extends Component {
     this.setState({ request: this.props.request });
   }
 
-  async approveRequest() {
-    await axiosGET(`/api/requests/${this.state.request._id}/Approved`).then(
-      res => {
-        console.log(res.data.msg);
-      }
-    );
-  }
+  // async approveRequest() {
+  //   await axiosGET(`/api/requests/${this.state.request._id}/Approved`).then(
+  //     res => {
+  //       console.log(res.data.msg);
+  //     }
+  //   );
+  // }
 
-  async rejectRequest() {
-    await axiosGET(`/api/requests/${this.state.request._id}/Rejected`).then(
-      res => {
-        console.log(res.data.msg);
-      }
-    );
-  }
+  // async rejectRequest() {
+  //   await axiosGET(`/api/requests/${this.state.request._id}/Rejected`).then(
+  //     res => {
+  //       console.log(res.data.msg);
+  //     }
+  //   );
+  // }
 
   render() {
     let isAdmin = getDecodedToken().role === "admin";
     if (!isAdmin) return <div />;
     if (!this.state.request) return <div />;
     let approveRequest = () => {
-      axiosPOST(`/api/requests/${this.state.request._id}/Approved`).then(
+      axiosPOST(`/api/requests/${this.state.request._id}/Approved/`).then(
         res => {
           console.log(res.data.msg);
           this.setState({ request: null });
@@ -49,7 +49,7 @@ class AdminRequest extends Component {
       );
     };
     let rejectRequest = () => {
-      axiosPOST(`/api/requests/${this.state.request._id}/Rejected`).then(
+      axiosPOST(`/api/requests/${this.state.request._id}/Rejected/`).then(
         res => {
           console.log(res.data.msg);
           this.setState({ request: null });
