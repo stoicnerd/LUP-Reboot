@@ -6,6 +6,7 @@ import {
   MuiPickersUtilsProvider
 } from "@material-ui/pickers";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import { sendBookingRequest } from "../utils/bookingRequester";
 import { axiosPOST } from "../utils/axiosClient";
 import { getDecodedToken } from "../utils/jwt";
@@ -67,6 +68,7 @@ class BookingPicker extends Component {
       startTime: new Date(),
       endTime: new Date(),
       status: null,
+      description: "",
       showModal: false,
       modalMsg: ""
     };
@@ -110,7 +112,7 @@ class BookingPicker extends Component {
             status: "Requested",
             startTime: sTime.toDate(),
             endTime: eTime.toDate(),
-            description: "Anything"
+            description: this.state.description
           };
           // bookingData.start().date(bookingData.date.date());
           // bookingData.end().date(bookingData.date.date());
@@ -155,6 +157,18 @@ class BookingPicker extends Component {
           minutesStep={5}
         />
         <br />
+        <Form>
+          <Form.Label>
+            <h5>Lab booking purpose</h5>
+          </Form.Label>
+          <Form.Control
+            onChange={event => {
+              this.setState({ description: event.target.value });
+            }}
+            as="textarea"
+            rows="3"
+          />
+        </Form>
         <Button
           style={{ margin: "15px" }}
           variant="secondary"
