@@ -44,9 +44,6 @@ class Request extends Component {
                 Email: {this.state && this.state.request.email}
               </Row>
               <Row className="m-1">
-                Date: {this.state && this.state.request.startTime}
-              </Row>
-              <Row className="m-1">
                 startTime: {this.state && this.state.request.startTime}
               </Row>
               <Row className="m-1">

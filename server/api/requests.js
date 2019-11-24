@@ -81,37 +81,6 @@ router.post(
   checkToken(["notAdmin", "admin"]),
   async (req, res, next) => {
     try {
-      if (req.params.newStatus === "Cancelled") {
-        let request = await Request.find({ _id: req.params.id });
-        if (request[0].status === "Approved") {
-          let approvedRequests = await Request.find({ status: "Approved" });
-          let waitlistedRequests = await Request.find({ status: "Waitlisted" });
-          for (var i = 0; i < waitlistedRequests.length; i++) {
-            var waitstart = new Date(waitlistedRequests[i].startTime);
-            var waitend = new Date(waitlistedRequests[i].endTime);
-            var x = 0;
-            for (var j = 0; j < approvedRequests.length; j++) {
-              var approvestart = new Date(approvedRequests[j].startTime);
-              var approveend = new Date(approvedRequests[j].endTime);
-              if (
-                (approvestart.getTime() >= waitstart.getTime() &&
-                  approvestart.getTime() < waitend.getTime()) ||
-                (approveend.getTime() > waitstart.getTime() &&
-                  approveend.getTime() <= waitend.getTime())
-              ) {
-                x = 1;
-              }
-            }
-            if (x === 0) {
-              await Request.findOneAndUpdate(
-                { _id: waitlistedRequests[i] },
-                { status: "Requested" }
-              );
-            }
-          }
-        }
-      }
-
       let request = await Request.findOneAndUpdate(
         { _id: req.params.id },
         { status: req.params.newStatus }
@@ -120,13 +89,13 @@ router.post(
       console.log(process.env.pass);
       console.log(request);
 
-      // var data = {
-      //   email: request.email,
-      //   subject: "Regarding your lab booking",
-      //   text: `your request for ${request.startTime} has been ${
-      //     req.params.newStatus
-      //   }`
-      // };
+      var data = {
+        email: request.email,
+        subject: "Regarding your lab booking",
+        text: `your request for ${request.startTime} has been ${
+          req.params.newStatus
+        }`
+      };
       // await axios.post("api/email/", data).then(res => {
       //   console.log(res);
       // });
@@ -160,10 +129,6 @@ router.post(
         for (i = 0; i < requests.length; i++) {
           var requestsstartDate = new Date(requests[i].startTime);
           var requestsendDate = new Date(requests[i].endTime);
-          // console.log(requeststart.getTime());
-          // console.log(requestend.getTime());
-          // console.log(requestsstartDate.getTime());
-          // console.log(requestsendDate.getTime());
           if (
             (requestsstartDate.getTime() >= requeststart.getTime() &&
               requestsstartDate.getTime() < requestend.getTime()) ||
@@ -180,10 +145,29 @@ router.post(
           console.log("ids[i]", ids[i]);
           console.log("request[0]._id", request[0]._id);
           if (ids[i] !== request[0]._id) {
-            await Request.findOneAndUpdate(
+            let tmp = await Request.findOneAndUpdate(
               { _id: ids[i] },
               { status: "Rejected" }
             );
+            mailOptions = {
+              from: process.env.user,
+              to: tmp.email,
+              subject: "Regarding your lab booking",
+              text: `your request for Lab booking from ${tmp.startTime} to ${
+                tmp.endTime
+              } has been rejected and the slot has been alloted to someone else. If you wish to be enlisted in the waitlist please click the link below :- \n`,
+              html:
+                '<p>Click <a href="http://localhost:4000/api/waitlist/' +
+                tmp._id +
+                '">here</a> to be added to the waitlist</p>'
+            };
+            transporter.sendMail(mailOptions, function(error, info) {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log("Email sent: " + info.response);
+              }
+            });
           }
         }
       }
