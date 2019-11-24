@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import { getDecodedToken } from "../utils/jwt";
 import { Card } from "@material-ui/core";
 import { axiosPOST } from "../utils/axiosClient";
+import { format } from "path";
 
 class SoftwareRequestPage extends Component {
   constructor(props) {
@@ -26,6 +27,9 @@ class SoftwareRequestPage extends Component {
     console.log(this.state.data);
   }
   render() {
+    let triall = () => {
+      document.getElementById("formSoftwareDesc").reset();
+    };
     let sendSoftReq = () => {
       let d = getDecodedToken();
       let reqData = {
@@ -53,7 +57,24 @@ class SoftwareRequestPage extends Component {
         <Card>
           <Row>
             <Col>
-              <Form>
+              <Form
+                onSubmit={async event => {
+                  let d = getDecodedToken();
+                  let reqData = {
+                    requesterName: d.name,
+                    requesterEmail: d.email,
+                    softwareName: this.state && this.state.softName,
+                    softwareLink: this.state && this.state.softLink,
+                    status: "Requested",
+                    description: this.state && this.state.desc
+                  };
+                  axiosPOST("/api/softwareRequests/", reqData).then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    Form.reset();
+                  });
+                }}
+              >
                 <Form.Group as={Row} controlId="formPlaintextEmail">
                   <Form.Label column sm="2">
                     Request from
@@ -97,14 +118,14 @@ class SoftwareRequestPage extends Component {
                     placeholder="For what purpose do you want this software?"
                   />
                 </Form.Group>
+                <Button
+                  style={{ margin: "15px" }}
+                  variant="secondary"
+                  type="submit"
+                >
+                  Request
+                </Button>
               </Form>
-              <Button
-                style={{ margin: "15px" }}
-                variant="secondary"
-                onClick={sendSoftReq}
-              >
-                Request Booking
-              </Button>
             </Col>
           </Row>
         </Card>
