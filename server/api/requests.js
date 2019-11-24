@@ -81,6 +81,36 @@ router.post(
   checkToken(["notAdmin", "admin"]),
   async (req, res, next) => {
     try {
+      if (req.params.newStatus === "Cancelled") {
+        let request = await Request.find({ _id: req.params.id });
+        if (request[0].status === "Approved") {
+          let approvedRequests = await Request.find({ status: "Approved" });
+          let waitlistedRequests = await Request.find({ status: "Waitlisted" });
+          for (var i = 0; i < waitlistedRequests.length; i++) {
+            var waitstart = new Date(waitlistedRequests[i].startTime);
+            var waitend = new Date(waitlistedRequests[i].endTime);
+            var x = 0;
+            for (var j = 0; j < approvedRequests.length; j++) {
+              var approvestart = new Date(approvedRequests[j].startTime);
+              var approveend = new Date(approvedRequests[j].endTime);
+              if (
+                (approvestart.getTime() >= waitstart.getTime() &&
+                  approvestart.getTime() < waitend.getTime()) ||
+                (approveend.getTime() > waitstart.getTime() &&
+                  approveend.getTime() <= waitend.getTime())
+              ) {
+                x = 1;
+              }
+            }
+            if (x === 0) {
+              await Request.findOneAndUpdate(
+                { _id: waitlistedRequests[i] },
+                { status: "Requested" }
+              );
+            }
+          }
+        }
+      }
       let request = await Request.findOneAndUpdate(
         { _id: req.params.id },
         { status: req.params.newStatus }
