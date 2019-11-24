@@ -69,7 +69,7 @@ class Bookings extends Component {
         </div>
       );
     });
-    return <SeeAll items={allrequests} count={50} name="requests" />;
+    return <SeeAll items={allrequests} count={5} name="requests" />;
   }
 
   getCalender() {

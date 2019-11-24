@@ -4,6 +4,7 @@ const router = express.Router();
 const auth = require("./auth");
 const requests = require("./requests");
 const events = require("./events");
+const email = require("./email");
 const checkToken = require("./authMiddleware");
 const softwareRequests = require("./softwareRequests");
 
@@ -16,4 +17,5 @@ router.use("/auth", auth);
 router.use("/requests", requests);
 router.use("/events", events);
 router.use("/softwareRequests", softwareRequests);
+router.use("/email", email);
 module.exports = router;
