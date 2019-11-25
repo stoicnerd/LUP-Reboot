@@ -183,11 +183,12 @@ router.post(
               from: process.env.user,
               to: tmp.email,
               subject: "Regarding your lab booking",
-              text: `your request for Lab booking from ${tmp.startTime} to ${
-                tmp.endTime
-              } has been rejected and the slot has been alloted to someone else. If you wish to be enlisted in the waitlist please click the link below :- \n`,
               html:
-                '<p>Click <a href="http://localhost:4000/api/waitlist/' +
+                "<p>your request for Lab booking from " +
+                tmp.startTime +
+                " to " +
+                tmp.endTime +
+                ' has been rejected and the slot has been alloted to someone else. If you wish to be enlisted in the waitlist please click the following link :- Click <a href="http://localhost:4000/api/waitlist/' +
                 tmp._id +
                 '">here</a> to be added to the waitlist</p>'
             };
