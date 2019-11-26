@@ -7,6 +7,7 @@ import { getDecodedToken } from "../utils/jwt";
 import { axiosGET, axiosPOST } from "../utils/axiosClient";
 import Button from "react-bootstrap/Button";
 //const axios = require('axios');
+import moment from "moment";
 
 class AdminRequest extends Component {
   constructor(props) {
@@ -55,14 +56,25 @@ class AdminRequest extends Component {
               <Row className="m-1">
                 Email: {this.state && this.state.request.email}
               </Row>
-              <Row className="m-1">
-                startTime: {this.state && this.state.request.startTime}
-              </Row>
-              <Row className="m-1">
-                endTime: {this.state && this.state.request.endTime}
-              </Row>
-              <Row className="m-1">
-                description: {this.state && this.state.request.description}
+              <Row>
+                <Col>
+                  <Row className="m-1">
+                    Date:{" "}
+                    {moment(this.state.request.startTime).format("Do MMM YYYY")}
+                  </Row>
+                  <Row>
+                    <Col className="m-1">
+                      From:{" "}
+                      {moment(this.state.request.startTime).format("h:mm A")}
+                    </Col>
+                    <Col className="m-1">
+                      ToTo: {moment(this.state.request.endTime).format("h:mm A")}
+                    </Col>
+                  </Row>
+                </Col>
+                <Col className="m-1">
+                  status: {this.state && this.state.request.status}
+                </Col>
               </Row>
             </Col>
             <Col>
