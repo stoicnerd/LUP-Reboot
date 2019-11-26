@@ -6,6 +6,7 @@ import SeeAll from "./SeeAll";
 import AdminSoftwareRequest from "./AdminSoftwareRequest";
 import { getDecodedToken } from "../utils/jwt";
 import { axiosGET } from "../utils/axiosClient";
+import SoftwareInstalled from "./SoftwareInstalled";
 
 class AdminSoftwareRequestPage extends Component {
   constructor(props) {
@@ -50,6 +51,11 @@ class AdminSoftwareRequestPage extends Component {
         <Row>
           <Col>
             <div className="m:2">{this.generateSoftwareRequestsList()}</div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <SoftwareInstalled />
           </Col>
         </Row>
       </Container>

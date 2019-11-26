@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import { getDecodedToken } from "../utils/jwt";
 import { Card } from "@material-ui/core";
 import { axiosPOST } from "../utils/axiosClient";
+import SoftwareInstalled from "./SoftwareInstalled";
 
 class SoftwareRequestPage extends Component {
   constructor(props) {
@@ -28,6 +29,12 @@ class SoftwareRequestPage extends Component {
   render() {
     return (
       <Container>
+        <Row>
+          <Col>
+            <SoftwareInstalled />
+          </Col>
+        </Row>
+        <hr />
         <Row style={{ padding: "2rem" }}>
           <Col>
             <h1 className="text-center">New Software Request</h1>
@@ -107,6 +114,21 @@ class SoftwareRequestPage extends Component {
             </Col>
           </Row>
         </Card>
+        <br />
+        <hr />
+        <div
+          style={{
+            left: "0",
+            bottom: "20px",
+            width: "100%",
+            textAlign: "center"
+          }}
+        >
+          <span class="glyphicon glyphicon-calendar" />
+          <span style={{ color: "darkgrey" }}>
+            CSIS Labs, BITS Pilani Hyderabad Campus
+          </span>
+        </div>
       </Container>
     );
   }

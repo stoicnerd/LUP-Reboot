@@ -8,6 +8,7 @@ const email = require("./email");
 const checkToken = require("./authMiddleware");
 const softwareRequests = require("./softwareRequests");
 const waitlist = require("./waitlist");
+const software = require("./software");
 router.all("/", (req, res, next) => {
   console.log(`${req.method} for ${req.url}`);
   next();
@@ -19,4 +20,5 @@ router.use("/events", events);
 router.use("/softwareRequests", softwareRequests);
 router.use("/email", email);
 router.use("/waitlist", waitlist);
+router.use("/software", software);
 module.exports = router;

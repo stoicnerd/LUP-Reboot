@@ -37,3 +37,7 @@ export const AdminSoftwareRequestPage = Loadable({
   loader: () => import("../components/AdminSoftwareRequestPage"),
   loading: () => <div>Loading...</div>
 });
+export const SoftwareInstalled = Loadable({
+  loader: () => import("../components/SoftwareInstalled"),
+  loading: () => <div>Loading...</div>
+});

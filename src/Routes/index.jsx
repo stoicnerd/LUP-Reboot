@@ -22,7 +22,8 @@ import {
   Bookings,
   ErrorPage,
   AdminSoftwareRequestPage,
-  SoftwareRequestPage
+  SoftwareRequestPage,
+  SoftwareInstalled
 } from "./LazyLoadRoutes.jsx";
 import Logout from "./Logout.jsx";
 import WIP from "../components/WIP.jsx";
