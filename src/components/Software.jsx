@@ -33,7 +33,7 @@ class Software extends Component {
             <Row style={{ margin: "1rem" }}>
               System Numbers:{" "}
               {this.state.software &&
-                this.state.software.systemNo.sort().join(", ")}
+                this.state.software.systemNo.sort((a, b) => a - b).join(", ")}
             </Row>
           </Collapse.Panel>
         </Collapse>

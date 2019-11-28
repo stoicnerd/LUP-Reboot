@@ -32,6 +32,19 @@ class SoftwareInstalled extends Component {
     let allsoftwares = [];
     let temp = [];
     temp = this.state.softwares;
+    temp.sort((a, b) => {
+      // Use toUpperCase() to ignore character casing
+      const nameA = a.name.toUpperCase();
+      const nameB = b.name.toUpperCase();
+
+      let comparison = 0;
+      if (nameA > nameB) {
+        comparison = 1;
+      } else if (nameA < nameB) {
+        comparison = -1;
+      }
+      return comparison;
+    });
     console.log(this.state && this.state.softwares);
     temp.forEach(software => {
       allsoftwares.push(
