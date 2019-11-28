@@ -6,6 +6,8 @@ import { getToken, checkToken } from "../utils/jwt";
 import LazyHero from "react-lazy-hero";
 import back1 from "../assets/back1.jpg";
 import back2 from "../assets/back2.jpg";
+import logo from "../assets/logo.png";
+import Image from "react-bootstrap/Image";
 
 class Login extends Component {
   constructor(props) {
@@ -58,13 +60,7 @@ class Login extends Component {
                 color: "white"
               }}
             >
-              {/* <img
-                src={logo}
-                height="auto"
-                width="100%"
-                alt="Lab Utility Portal"
-              /> */}
-              <h1>Lab Utility Portal</h1>
+              <Image src={logo} />
               <br />
               <br />
               <h4>Lab Bookings and Software Install Requests for CSIS Labs</h4>
