@@ -70,12 +70,30 @@ class Request extends Component {
               </Col>
               <Col style={{ marginRight: "1rem", marginBottom: "0.5rem" }}>
                 {this.state.request.status === "Approved" ? (
-                  <Button variant="danger" className="m-1" onClick={cancelBooking}>
+                  <Button
+                    variant="danger"
+                    className="m-1"
+                    onClick={cancelBooking}
+                  >
                     Cancel Booking
                   </Button>
                 ) : this.state.request.status === "Requested" ? (
-                  <Button variant="danger" className="m-1" onClick={cancelBooking} block>
+                  <Button
+                    variant="danger"
+                    className="m-1"
+                    onClick={cancelBooking}
+                    block
+                  >
                     Cancel Request
+                  </Button>
+                ) : this.state.request.status === "Waitlisted" ? (
+                  <Button
+                    variant="danger"
+                    className="m-1"
+                    onClick={cancelBooking}
+                    block
+                  >
+                    Remove from Waitlist
                   </Button>
                 ) : null}
               </Col>
